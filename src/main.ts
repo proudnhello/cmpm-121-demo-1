@@ -26,15 +26,18 @@ app.append(button);
 
 // Button that uses soldiers to build a barracks.
 const upgradeButton = document.createElement("button");
-upgradeButton.innerHTML = "Build a Barracks <br> Cost: 10 <br> Soldiers per second: 1";
+upgradeButton.innerHTML =
+  "Build a Barracks <br> Cost: 10 <br> Soldiers per second: 1";
 app.append(upgradeButton);
 upgradeButton.disabled = true;
 
-const upgradeDetails = [{
+const upgradeDetails = [
+  {
     name: "Barracks",
     cost: 10,
     soldiersPerSecond: 1,
-}]
+  },
+];
 
 let soldiers = 0;
 let soldiersPerSecond = 0;
@@ -68,9 +71,9 @@ function increaseSoldiers(amount: number) {
 function buildBarracks() {
   soldiers -= 10;
   soldiersPerSecond += upgradeDetails[0].soldiersPerSecond;
-  upgradeButton.innerHTML =  `Build a Barracks <br> Cost: ${upgradeDetails[0].cost} <br> Soldiers per second: ${upgradeDetails[0].soldiersPerSecond};`
+  upgradeButton.innerHTML = `Build a Barracks <br> Cost: ${upgradeDetails[0].cost} <br> Soldiers per second: ${upgradeDetails[0].soldiersPerSecond};`;
   increment.innerHTML = `Soldiers per second: ${soldiersPerSecond} <br>`;
-  if (soldiers < upgradeDetails[0].cost){
+  if (soldiers < upgradeDetails[0].cost) {
     upgradeButton.disabled = true;
   }
 }
