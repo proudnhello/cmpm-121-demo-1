@@ -10,6 +10,11 @@ const header = document.createElement("h1");
 header.innerHTML = gameName;
 app.append(header);
 
+// Button that increases the amount of soldiers.
+const button = document.createElement("button");
+button.innerHTML = "Recruit a soldier<br> 🔫"; // I wanted to use a saluting face, but its not supported on windows 10.
+app.append(button);
+
 // Counter that lists the amount of soldiers.
 const counter = document.createElement("div");
 counter.innerHTML = "Soldiers: 0 <br>";
@@ -19,11 +24,6 @@ const increment = document.createElement("div");
 increment.innerHTML = "Soldiers per second: 0 <br>";
 app.append(increment);
 
-// Button that increases the amount of soldiers.
-const button = document.createElement("button");
-button.innerHTML = "Recruit a soldier<br> 🔫"; // I wanted to use a saluting face, but its not supported on windows 10.
-app.append(button);
-
 // Button that contains the details for an upgrade.
 interface UpgradeDetails {
   name: string; // The name, which will be shown to the user
@@ -31,16 +31,18 @@ interface UpgradeDetails {
   soldiersPerSecond: number; // The amount of soldiers per second that the upgrade will provide
   numberOfInstances: number; // The number of instances of the upgrade that the player has
   button: HTMLButtonElement | null; // The button that will be used to build the upgrade
+  counter: HTMLDivElement | null; // The counter that will be used to display the number of instances of the upgrade
 }
 
 // A list of upgrades that the player can build. Any new upgrades should be added here, and will have upgrade buttons created for them.
-const upgradeDetails :UpgradeDetails[] = [
+const upgradeDetails: UpgradeDetails[] = [
   {
     name: "Barracks",
     cost: 10,
-    soldiersPerSecond: 0.1,
+    soldiersPerSecond: 100.1,
     numberOfInstances: 0,
     button: null,
+    counter: null,
   },
   {
     name: "Training Grounds",
@@ -48,6 +50,7 @@ const upgradeDetails :UpgradeDetails[] = [
     soldiersPerSecond: 2,
     numberOfInstances: 0,
     button: null,
+    counter: null,
   },
   {
     name: "Armory",
@@ -55,6 +58,7 @@ const upgradeDetails :UpgradeDetails[] = [
     soldiersPerSecond: 50,
     numberOfInstances: 0,
     button: null,
+    counter: null,
   },
 ];
 
@@ -63,11 +67,23 @@ let soldiersPerSecond = 0; // The amount of soldiers per second that the player 
 
 // Create buttons for each upgrade, and add them to the app.
 for (let i = 0; i < upgradeDetails.length; i++) {
+  // Create the button, give it the initial text, and add it to the app.
   const upgradeButton = document.createElement("button");
   upgradeButton.innerHTML = `${upgradeDetails[i].name} <br> Cost: ${upgradeDetails[i].cost} <br> Soldiers per second: ${upgradeDetails[i].soldiersPerSecond};`;
   app.append(upgradeButton);
+  // Place the button into the correct UpgradeDetails object.
   upgradeDetails[i].button = upgradeButton;
-  upgradeButton.addEventListener("click", buildUpgrade.bind(null, upgradeDetails[i]));
+  // Create a counter for the number of instances of the upgrade, and add it to the app.
+  const upgradeCounter = document.createElement("div");
+  upgradeCounter.innerHTML = `${upgradeDetails[i].name}: ${upgradeDetails[i].numberOfInstances} <br>`;
+  app.append(upgradeCounter);
+  // Place the counter into the correct UpgradeDetails object.
+  upgradeDetails[i].counter = upgradeCounter;
+  // Add an event listener to the button, and bind the upgrade details to it.
+  upgradeButton.addEventListener(
+    "click",
+    buildUpgrade.bind(null, upgradeDetails[i]),
+  );
   upgradeButton.disabled = true;
 }
 
@@ -107,11 +123,10 @@ function buildUpgrade(upgrade: UpgradeDetails) {
   soldiersPerSecond += upgrade.soldiersPerSecond;
   upgrade.numberOfInstances++;
   // Refresh the upgrade button, and the increment text.
-  if (upgrade.button !== null) {
-    upgrade.button.innerHTML = `Build a ${upgrade.name} <br> Cost: ${upgrade.cost} <br> Soldiers per second: ${upgrade.soldiersPerSecond};`;
-    if (soldiers < upgrade.cost) {
-      upgrade.button.disabled = true;
-    }
+  upgrade.button!.innerHTML = `Build a ${upgrade.name} <br> Cost: ${upgrade.cost} <br> Soldiers per second: ${upgrade.soldiersPerSecond};`;
+  upgrade.counter!.innerHTML = `${upgrade.name}: ${upgrade.numberOfInstances} <br>`;
+  if (soldiers < upgrade.cost) {
+    upgrade.button!.disabled = true;
   }
   // Refresh the number of soldiers per second.
   increment.innerHTML = `Soldiers per second: ${soldiersPerSecond} <br>`;
