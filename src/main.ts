@@ -39,7 +39,7 @@ const upgradeDetails: UpgradeDetails[] = [
   {
     name: "Barracks",
     cost: 10,
-    soldiersPerSecond: 100.1,
+    soldiersPerSecond: 0.1,
     numberOfInstances: 0,
     button: null,
     counter: null,
