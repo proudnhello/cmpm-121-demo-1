@@ -32,6 +32,7 @@ interface UpgradeDetails {
   numberOfInstances: number; // The number of instances of the upgrade that the player has
   button: HTMLButtonElement | null; // The button that will be used to build the upgrade
   counter: HTMLDivElement | null; // The counter that will be used to display the number of instances of the upgrade
+  description: string; // The description of the upgrade, which will be shown to the user
 }
 
 const COST_INCREASE_FACTOR = 1.15; // The factor by which the cost of an upgrade will increase each time it is built.
@@ -45,6 +46,16 @@ const upgradeDetails: UpgradeDetails[] = [
     numberOfInstances: 0,
     button: null,
     counter: null,
+    description: "A place for soldiers to sleep, making soldering more attractive.",
+  },
+  {
+    name: "Student Loans",
+    cost: 50,
+    soldiersPerSecond: 1,
+    numberOfInstances: 0,
+    button: null,
+    counter: null,
+    description: "A way to get young people into the army, by giving them no other choice.",
   },
   {
     name: "Training Grounds",
@@ -53,6 +64,16 @@ const upgradeDetails: UpgradeDetails[] = [
     numberOfInstances: 0,
     button: null,
     counter: null,
+    description: "A place for soldiers to train, impressing parents and getting a large influx of delinquents.",
+  },
+  {
+    name: "Recruitment Office",
+    cost: 500,
+    soldiersPerSecond: 25,
+    numberOfInstances: 0,
+    button: null,
+    counter: null,
+    description: "A place for people to sign up, promising them a better life and a free gun.",
   },
   {
     name: "Armory",
@@ -61,8 +82,9 @@ const upgradeDetails: UpgradeDetails[] = [
     numberOfInstances: 0,
     button: null,
     counter: null,
+    description: "A place for big and exciting weapons, causing childern to dream of becoming soldiers.",
   },
-]; 
+];
 
 let soldiers = 0; // The amount of soldiers that the player has.
 let soldiersPerSecond = 0; // The amount of soldiers per second that the player is gaining.
@@ -71,13 +93,11 @@ let soldiersPerSecond = 0; // The amount of soldiers per second that the player 
 for (let i = 0; i < upgradeDetails.length; i++) {
   // Create the button, give it the initial text, and add it to the app.
   const upgradeButton = document.createElement("button");
-  upgradeButton.innerHTML = `${upgradeDetails[i].name} <br> Cost: ${upgradeDetails[i].cost} <br> Soldiers per second: ${upgradeDetails[i].soldiersPerSecond};`;
   app.append(upgradeButton);
   // Place the button into the correct UpgradeDetails object.
   upgradeDetails[i].button = upgradeButton;
   // Create a counter for the number of instances of the upgrade, and add it to the app.
   const upgradeCounter = document.createElement("div");
-  upgradeCounter.innerHTML = `${upgradeDetails[i].name}: ${upgradeDetails[i].numberOfInstances} <br>`;
   app.append(upgradeCounter);
   // Place the counter into the correct UpgradeDetails object.
   upgradeDetails[i].counter = upgradeCounter;
@@ -86,6 +106,8 @@ for (let i = 0; i < upgradeDetails.length; i++) {
     "click",
     buildUpgrade.bind(null, upgradeDetails[i]),
   );
+  // Update the button text, and disable it if the player does not have enough soldiers to build it.
+  updateUpgradeButton(upgradeDetails[i]);
   upgradeButton.disabled = true;
 }
 
@@ -115,7 +137,15 @@ function gameLoop(previousTime: number) {
 // Increaces the soldiers by the amount, then updates the counter.
 function increaseSoldiers(amount: number) {
   soldiers += amount;
-  counter.innerHTML = `Soldiers: ${soldiers} <br>`;
+  counter.innerHTML = `Soldiers: ${soldiers.toFixed(2)} <br>`;
+}
+
+function updateUpgradeButton(upgrade: UpgradeDetails) {
+  upgrade.button!.innerHTML = `Build a ${upgrade.name} <br> Cost: ${upgrade.cost.toFixed(2)} <br> Soldiers per second: ${upgrade.soldiersPerSecond}.`;
+  upgrade.counter!.innerHTML = `${upgrade.name}: ${upgrade.description} <br> You have ${upgrade.numberOfInstances} <br>`;
+  if (soldiers < upgrade.cost) {
+    upgrade.button!.disabled = true;
+  }
 }
 
 // Builds an upgrade, of which the details are passed in.
@@ -126,11 +156,7 @@ function buildUpgrade(upgrade: UpgradeDetails) {
   upgrade.cost = upgrade.cost * COST_INCREASE_FACTOR;
   upgrade.numberOfInstances++;
   // Refresh the upgrade button, and the increment text.
-  upgrade.button!.innerHTML = `Build a ${upgrade.name} <br> Cost: ${upgrade.cost} <br> Soldiers per second: ${upgrade.soldiersPerSecond};`;
-  upgrade.counter!.innerHTML = `${upgrade.name}: ${upgrade.numberOfInstances} <br>`;
-  if (soldiers < upgrade.cost) {
-    upgrade.button!.disabled = true;
-  }
+  updateUpgradeButton(upgrade);
   // Refresh the number of soldiers per second.
-  increment.innerHTML = `Soldiers per second: ${soldiersPerSecond} <br>`;
+  increment.innerHTML = `Soldiers per second: ${soldiersPerSecond.toFixed(2)} <br>`;
 }
