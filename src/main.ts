@@ -34,6 +34,8 @@ interface UpgradeDetails {
   counter: HTMLDivElement | null; // The counter that will be used to display the number of instances of the upgrade
 }
 
+const COST_INCREASE_FACTOR = 1.15; // The factor by which the cost of an upgrade will increase each time it is built.
+
 // A list of upgrades that the player can build. Any new upgrades should be added here, and will have upgrade buttons created for them.
 const upgradeDetails: UpgradeDetails[] = [
   {
@@ -121,6 +123,7 @@ function buildUpgrade(upgrade: UpgradeDetails) {
   // Remove the cost of the upgrade from the player's soldiers, add the soldiers per second to the player's soldiers per second, and increace the number of that upgrade.
   soldiers -= upgrade.cost;
   soldiersPerSecond += upgrade.soldiersPerSecond;
+  upgrade.cost = upgrade.cost * COST_INCREASE_FACTOR;
   upgrade.numberOfInstances++;
   // Refresh the upgrade button, and the increment text.
   upgrade.button!.innerHTML = `Build a ${upgrade.name} <br> Cost: ${upgrade.cost} <br> Soldiers per second: ${upgrade.soldiersPerSecond};`;
