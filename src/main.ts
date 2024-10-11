@@ -62,7 +62,7 @@ const upgradeDetails: UpgradeDetails[] = [
     button: null,
     counter: null,
   },
-];
+]; 
 
 let soldiers = 0; // The amount of soldiers that the player has.
 let soldiersPerSecond = 0; // The amount of soldiers per second that the player is gaining.
