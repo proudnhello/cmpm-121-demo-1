@@ -42,29 +42,32 @@ const upgradeDetails: UpgradeDetails[] = [
   {
     name: "Barracks",
     cost: 10,
-    soldiersPerSecond: 0.1,
-    numberOfInstances: 0,
-    button: null,
-    counter: null,
-    description: "A place for soldiers to sleep, making soldering more attractive.",
-  },
-  {
-    name: "Student Loans",
-    cost: 50,
     soldiersPerSecond: 1,
     numberOfInstances: 0,
     button: null,
     counter: null,
-    description: "A way to get young people into the army, by giving them no other choice.",
+    description:
+      "A place for soldiers to sleep, making soldering more attractive.",
+  },
+  {
+    name: "Student Loans",
+    cost: 50,
+    soldiersPerSecond: 5,
+    numberOfInstances: 0,
+    button: null,
+    counter: null,
+    description:
+      "A way to get young people into the army, by giving them no other choice.",
   },
   {
     name: "Training Grounds",
     cost: 100,
-    soldiersPerSecond: 2,
+    soldiersPerSecond: 10,
     numberOfInstances: 0,
     button: null,
     counter: null,
-    description: "A place for soldiers to train, impressing parents and getting a large influx of delinquents.",
+    description:
+      "A place for soldiers to train, impressing parents and getting a large influx of delinquents.",
   },
   {
     name: "Recruitment Office",
@@ -73,16 +76,18 @@ const upgradeDetails: UpgradeDetails[] = [
     numberOfInstances: 0,
     button: null,
     counter: null,
-    description: "A place for people to sign up, promising them a better life and a free gun.",
+    description:
+      "A place for people to sign up, promising them a better life and a free gun.",
   },
   {
     name: "Armory",
     cost: 1000,
-    soldiersPerSecond: 50,
+    soldiersPerSecond: 100,
     numberOfInstances: 0,
     button: null,
     counter: null,
-    description: "A place for big and exciting weapons, causing childern to dream of becoming soldiers.",
+    description:
+      "A place for big and exciting weapons, causing childern to dream of becoming soldiers.",
   },
 ];
 
