@@ -13,36 +13,36 @@ header.innerHTML = gameName;
 app.append(header);
 
 // Button that increases the amount of soldiers.
-const button = document.createElement("button");
-button.innerHTML = "Recruit a soldier<br> 🔫"; // I wanted to use a saluting face, but its not supported on windows 10.
-app.append(button);
+const createSoldierButton = document.createElement("button");
+createSoldierButton.innerHTML = "Recruit a soldier<br> 🔫"; // I wanted to use a saluting face, but its not supported on windows 10.
+app.append(createSoldierButton);
 
 // Increase the number of soldiers by 1 when the button is clicked.
-button.addEventListener("click", increaseSoldiers.bind(null, 1));
+createSoldierButton.addEventListener("click", increaseSoldiers.bind(null, 1));
 
 // Counter that lists the amount of soldiers.
-const counter = document.createElement("div");
-counter.innerHTML = "Soldiers: 0 <br>";
-app.append(counter);
+const solderCountDiv = document.createElement("div");
+solderCountDiv.innerHTML = "Soldiers: 0 <br>";
+app.append(solderCountDiv);
 
 // Counter that defines the rate at which soldiers are being recruited per second.
-const increment = document.createElement("div");
-increment.innerHTML = "Soldiers per second: 0 <br>";
-app.append(increment);
+const soldierRateDiv = document.createElement("div");
+soldierRateDiv.innerHTML = "Soldiers per second: 0 <br>";
+app.append(soldierRateDiv);
 
 // Interface that defines the properties of an upgrade.
 interface UpgradeDetails {
-  name: string; 
-  cost: number; 
-  soldiersPerSecond: number; 
-  numberOfInstances: number; 
-  description: string; 
+  name: string;
+  cost: number;
+  soldiersPerSecond: number;
+  numberOfInstances: number;
+  description: string;
 }
 
 // Arrays that store the buttons, upgrades, and counters for each upgrade. Corresponding elements in each array are for the same upgrade.
 // For example, upgradeDetails[0], buttons[0], and counterDivs[0] are for the same upgrade.
-const buttons: HTMLButtonElement[] = []; 
-const counterDivs: HTMLDivElement[] = []; 
+const upgradeButtons: HTMLButtonElement[] = [];
+const counterDivs: HTMLDivElement[] = [];
 
 // A list of upgrades that the player can build. Any new upgrades should be added here, and will have upgrade buttons created for them.
 const upgradeDetails: UpgradeDetails[] = [
@@ -88,8 +88,8 @@ const upgradeDetails: UpgradeDetails[] = [
   },
 ];
 
-let soldiers = 0; 
-let soldiersPerSecond = 0; 
+let soldiers = 0;
+let soldiersPerSecond = 0;
 
 // Create buttons for each upgrade, and add them to the app.
 for (let i = 0; i < upgradeDetails.length; i++) {
@@ -97,12 +97,9 @@ for (let i = 0; i < upgradeDetails.length; i++) {
   const upgradeButton = document.createElement("button");
   app.append(upgradeButton);
   // Place the button into the correct UpgradeDetails object.
-  buttons[i] = upgradeButton;
+  upgradeButtons[i] = upgradeButton;
   // Add an event listener to the button, and bind the upgrade details to it.
-  upgradeButton.addEventListener(
-    "click",
-    buildUpgrade.bind(null, i),
-  );
+  upgradeButton.addEventListener("click", buildUpgrade.bind(null, i));
 
   // Create a counter for the number of instances of the upgrade, and add it to the app.
   const upgradeCounter = document.createElement("div");
@@ -130,7 +127,7 @@ function gameLoop(previousTime: number) {
   // Iterate through the upgrades, and enable the buttons if the player has enough soldiers to build them.
   for (let i = 0; i < upgradeDetails.length; i++) {
     if (soldiers >= upgradeDetails[i].cost) {
-      buttons[i].disabled = false;
+      upgradeButtons[i].disabled = false;
     }
   }
 
@@ -140,13 +137,13 @@ function gameLoop(previousTime: number) {
 // Increaces the soldiers by the amount, then updates the counter.
 function increaseSoldiers(amount: number) {
   soldiers += amount;
-  counter.innerHTML = `Soldiers: ${soldiers.toFixed(2)} <br>`;
+  solderCountDiv.innerHTML = `Soldiers: ${soldiers.toFixed(2)} <br>`;
 }
 
 // Updates the upgrade button with the new details of the upgrade
 function updateUpgradeButton(upgradeIndex: number) {
   const upgrade = upgradeDetails[upgradeIndex];
-  const button = buttons[upgradeIndex];
+  const button = upgradeButtons[upgradeIndex];
   const counter = counterDivs[upgradeIndex];
 
   button.innerHTML = `Build a ${upgrade.name} <br> Cost: ${upgrade.cost.toFixed(2)} <br> Soldiers per second: ${upgrade.soldiersPerSecond}.`;
@@ -170,5 +167,5 @@ function buildUpgrade(upgradeIndex: number) {
   // Refresh the upgrade button, and the increment text.
   updateUpgradeButton(upgradeIndex);
   // Refresh the number of soldiers per second.
-  increment.innerHTML = `Soldiers per second: ${soldiersPerSecond.toFixed(2)} <br>`;
+  soldierRateDiv.innerHTML = `Soldiers per second: ${soldiersPerSecond.toFixed(2)} <br>`;
 }
