@@ -2,10 +2,10 @@ This is the starter code project for the `Demo 1` project in CMPM 121, Game Desi
 
 Marching title inspired by https://github.com/scso-ucsc/Incremental-Game-Development/mar
 
-Background image inspired by: https://github.com/EllieM-gd/cmpm-121-demo-1 
+Background image inspired by: https://github.com/EllieM-gd/cmpm-121-demo-1
 
-Camoflage image: 
+Camoflage image:
 Title: "Camouflage stock #5"
 Author: Cirquan https://www.deviantart.com/cirquan/gallery
-Source: https://www.deviantart.com/cirquan/art/Camouflage-stock-5-588580893 
-Lisense: https://creativecommons.org/licenses/by/3.0/ 
+Source: https://www.deviantart.com/cirquan/art/Camouflage-stock-5-588580893
+Lisense: https://creativecommons.org/licenses/by/3.0/

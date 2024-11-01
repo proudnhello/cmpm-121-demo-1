@@ -13,7 +13,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-  background-image: url('src/camouflage_stock__5_by_cirquan_d9qfbx9-pre.jpg');
+  background-image: url("assets/camouflage_stock__5_by_cirquan_d9qfbx9-pre.jpg");
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -48,7 +48,8 @@ h1 {
 }
 
 @keyframes leftMarch {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(-50px);
   }
   50% {
@@ -62,7 +63,8 @@ h1 {
 }
 
 @keyframes rightMarch {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {
