@@ -2,15 +2,29 @@ import "./style.css";
 
 const app: HTMLDivElement = document.querySelector("#app")!;
 
-const gameName = "Army Builder";
+const leftName = "Army";
+const rightName = "Builder";
+const gameName = `${leftName} ${rightName}`;
 document.title = gameName;
 
 const COST_INCREASE_FACTOR = 1.15; // The factor by which the cost of an upgrade will increase each time it is built.
 
-// Title
-const header = document.createElement("h1");
-header.innerHTML = gameName;
-app.append(header);
+// Title that will look like it is marching.
+const title = document.createElement("h1");
+title.innerHTML = "<br>";
+app.append(title);
+
+// Creates the left side of the title, the "left boot".
+const leftBoot = document.createElement("div");
+leftBoot.innerHTML = leftName;
+leftBoot.classList.add("leftMarch");
+title.append(leftBoot);
+
+// Creates the right side of the title, the "right boot".
+const rightBoot = document.createElement("div");
+rightBoot.innerHTML = rightName;
+rightBoot.classList.add("rightMarch");
+title.append(rightBoot);
 
 // Button that increases the amount of soldiers.
 const createSoldierButton = document.createElement("button");

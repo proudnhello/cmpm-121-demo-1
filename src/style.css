@@ -4,7 +4,8 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
+  color: rgba(0, 0, 0, 0.87);
+  font-weight: bolder;
   background-color: #242424;
 
   font-synthesis: none;
@@ -12,6 +13,11 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+  background-image: url('src/camouflage_stock__5_by_cirquan_d9qfbx9-pre.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  background-repeat: repeat;
 }
 
 a {
@@ -34,6 +40,34 @@ body {
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
+}
+
+.leftMarch {
+  animation: leftMarch 1s linear infinite;
+  display: inline-block;
+}
+
+@keyframes leftMarch {
+  0%, 100% {
+    transform: translateY(-50px);
+  }
+  50% {
+    transform: translateY(0);
+  }
+}
+
+.rightMarch {
+  animation: rightMarch 1s linear infinite;
+  display: inline-block;
+}
+
+@keyframes rightMarch {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-50px);
+  }
 }
 
 #app {
